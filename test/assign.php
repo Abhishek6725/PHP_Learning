@@ -1,0 +1,21 @@
+<html>
+    <?php
+    $x=10;
+    echo++$x;//11
+    echo$x;//11
+    echo"<br>";
+    $x=10;
+    echo$x++;//10
+    echo$x;//11
+    echo"<br>";
+    $x=10;
+    echo--$x;//9
+    echo$x;//9
+    echo"<br>";
+    $x=10;
+    echo$x--;
+    echo$x;
+    echo"<br>";
+
+?>
+</html>
