@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat app</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ece5dd;
+        }
+
+        #chat-container {
+            width: 400px;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+
+        #header {
+            background-color: #075E54;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chat-area {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f0f0f0;
+        }
+
+        .message {
+            max-width: 70%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            clear: both;
+        }
+
+        .sent {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .received {
+            background-color: white;
+            align-self: flex-start;
+        }
+
+        #input-area {
+            display: flex;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+        }
+
+        #input-message {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        #send-button {
+            background-color: #25D366;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #128C7E;
+        }
+
+        #chat-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat-area::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="chat-container">
+    
+    <div id="header">
+        <span>chat app</span>
+    </div>
+
+   
+    <div id="chat-area"></div>
+
+    <!-- Input Area -->
+    <div id="input-area">
+        <input type="text" id="input-message" placeholder="Type a message...">
+        <button id="send-button">Send</button>
+    </div>
+</div>
+
+<script>
+    const chatArea = document.getElementById('chat-area');
+    const inputMessage = document.getElementById('input-message');
+    const sendButton = document.getElementById('send-button');
+
+    // Function to append a message to the chat
+    function appendMessage(messageText, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', type);
+        messageDiv.textContent = messageText;
+
+        chatArea.appendChild(messageDiv);
+        chatArea.scrollTop = chatArea.scrollHeight; // Scroll to the bottom
+    }
+
+    // Event listener for sending messages
+    sendButton.addEventListener('click', () => {
+        const messageText = inputMessage.value.trim();
+        if (messageText !== "") {
+            appendMessage(messageText, 'sent');
+            inputMessage.value = ""; // Clear the input field
+            setTimeout(() => {
+                appendMessage("Received: " + messageText, 'received');
+            }, 1000);
+        }
+    });
+
+
+    inputMessage.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendButton.click();
+        }
+    });
+</script>
+
+</body>
+</html>
